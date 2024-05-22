@@ -1,18 +1,17 @@
 package br.com.diisk.alurajavautils.reflect;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
 public class Transformator {
 
-    public <T, Z> Z transform(Z input) throws ClassNotFoundException, InstantiationException, IllegalAccessException,
+    public <S, T> T transform(S input) throws ClassNotFoundException, InstantiationException, IllegalAccessException,
             IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         Class<?> source = input.getClass();
-        Class<?> target = Class.forName(source + "DTO");
+        Class<?> target = Class.forName(source.getName() + "DTO");
 
-        Z targetClass = (Z) target.getDeclaredConstructor().newInstance();
+        T targetClass = (T) target.getDeclaredConstructor().newInstance();
 
         Field[] sourceFields = source.getDeclaredFields();
         Field[] targetFields = target.getDeclaredFields();
